@@ -22,11 +22,13 @@ void game_start(char *username1, char *username2)
     printf("%s\n", cJSON_Print(Payload));
 }
 
+
+
 int main(int argc, char *argv[]) {
     struct addrinfo hints, *res;
     int sockfd, clientfd, status, bytes_received;
-    int clientfd1 = -10;
-    int clientfd2 = -10;
+    int clientfd1;
+    int clientfd2;
     int n_client = 0;
     char buffer[1024];
     char username1[1024];
@@ -39,7 +41,7 @@ int main(int argc, char *argv[]) {
     hints.ai_flags = AI_PASSIVE;
     
     // Resolve the IP address of the local host using getaddrinfo
-    status = getaddrinfo(NULL, "5000", &hints, &res);
+    status = getaddrinfo(NULL, "5001", &hints, &res);
     if (status != 0) {
         fprintf(stderr, "getaddrinfo error: %s\n", gai_strerror(status));
         exit(1);
@@ -68,34 +70,19 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
     
-    printf("Listening on port 5000...\n");
+    printf("Listening on port 5001...\n");
 
-    while (1) {
-        if(n_client == 2) break;
-
-        clientfd = accept(sockfd, NULL, NULL);
-        if (clientfd == -1) {
-            perror("accept error");
-            continue;
-        }
-        else if(clientfd1 == -10){
-            clientfd1 = clientfd;
-            n_client++;
-        }
-        else if(clientfd1 == -10){
-            clientfd2 = clientfd;
-            n_client++;
-        }
-    }
+    clientfd1 = accept(sockfd, NULL, NULL);
+    clientfd2 = accept(sockfd, NULL, NULL);
 
     printf("%d %d\n", clientfd1, clientfd2);
-
-    bytes_received = recv(clientfd, username1, sizeof username1 - 1, 0);
+    
+    bytes_received = recv(clientfd1, username1, sizeof username1 - 1, 0);
     username1[bytes_received] = '\0';
-
-    bytes_received = recv(clientfd, username2, sizeof username1 - 1, 0);
+    
+    bytes_received = recv(clientfd2, username2, sizeof username1 - 1, 0);
     username2[bytes_received] = '\0';
-
+    
     game_start(username1, username2);
 
     while (1) {
