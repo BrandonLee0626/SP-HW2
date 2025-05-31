@@ -9,8 +9,24 @@
 
 int main(int argc, char *argv[]) {
     struct addrinfo hints, *res;
-    int sockfd, status;
+    int sockfd, status, opt;
     char buffer[1024];
+
+    char ip[100], port[100], username[100];
+
+   while ((opt = getopt(argc, argv, "ip:u:")) != -1) {
+        switch(opt) {
+            case 'ip':
+                *ip = optarg;
+                break;
+            case 'port':
+                *port = optarg;
+                break;
+            case 'username':
+                *username = optarg;
+                break;
+        }
+    }
 
     // Set up socket parameters
     memset(&hints, 0, sizeof hints);
@@ -18,7 +34,7 @@ int main(int argc, char *argv[]) {
     hints.ai_socktype = SOCK_STREAM;
 
     // Resolve the IP address of the remote server using getaddrinfo
-    status = getaddrinfo(argv[1], argv[2], &hints, &res);
+    status = getaddrinfo(ip, port, &hints, &res);
     if (status != 0) {
         fprintf(stderr, "getaddrinfo error: %s\n", gai_strerror(status));
         exit(1);
