@@ -5,10 +5,26 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
+#include "cjson/cJSON.h"
+
+void game_start(char *username1[], char *username2[])
+{
+    cJSON *Payload = cJSON_CreateObject();
+    cJSON *players = cJSON_CreateArray();
+
+    cJSON_AddItemToArray(players, username1);
+    cJSON_AddItemToArray(players, username2);
+
+    cJSON_AddItemToObject(Payload, "type", "game_start");
+    cJSON_AddArrayToObject(Payload, players);
+}
 
 int main(int argc, char *argv[]) {
     struct addrinfo hints, *res;
     int sockfd, clientfd, status;
+    int clientfd1 = NULL;
+    int clientfd2 = NULL;
+    int n_client = 0;
     char buffer[1024];
 
     // Set up socket parameters
@@ -50,6 +66,26 @@ int main(int argc, char *argv[]) {
     printf("Listening on port 5000...\n");
 
     while (1) {
+        if(n_client == 2) break;
+
+        clientfd = accept(sockfd, NULL, NULL);
+        if (clientfd == -1) {
+            perror("accept error");
+            continue;
+        }
+        else if(clientfd1 == NULL){
+            clientfd1 = clientfd;
+            n_client++;
+        }
+        else if(clientfd1 == NULL){
+            clientfd2 = clientfd;
+            n_client++;
+        }
+    }
+
+    printf("%d %d\n", clientfd1, clientfd2);
+
+    while (1) {
         // Accept a new connection
         clientfd = accept(sockfd, NULL, NULL);
         if (clientfd == -1) {
@@ -58,6 +94,7 @@ int main(int argc, char *argv[]) {
         }
         
         printf("Accepted connection from client\n");
+        
 
         // Receive the message from the client
         int bytes_received = recv(clientfd, buffer, sizeof buffer - 1, 0);
