@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Send a message to the server
-    const char *message = "Hi There\n";
+    const char *message = username;
     send(sockfd, message, strlen(message), 0);
 
     // Receive the response from the server

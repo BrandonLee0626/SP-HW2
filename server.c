@@ -24,11 +24,13 @@ void game_start(char *username1, char *username2)
 
 int main(int argc, char *argv[]) {
     struct addrinfo hints, *res;
-    int sockfd, clientfd, status;
+    int sockfd, clientfd, status, bytes_received;
     int clientfd1 = -10;
     int clientfd2 = -10;
     int n_client = 0;
     char buffer[1024];
+    char username1[1024];
+    char username2[1024];
 
     // Set up socket parameters
     memset(&hints, 0, sizeof hints);
@@ -87,7 +89,14 @@ int main(int argc, char *argv[]) {
     }
 
     printf("%d %d\n", clientfd1, clientfd2);
-    
+
+    bytes_received = recv(clientfd, username1, sizeof username1 - 1, 0);
+    username1[bytes_received] = '\0';
+
+    bytes_received = recv(clientfd, username2, sizeof username1 - 1, 0);
+    username2[bytes_received] = '\0';
+
+    game_start(username1, username2);
 
     while (1) {
         // Accept a new connection
