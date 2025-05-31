@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 
    while ((opt = getopt(argc, argv, "ip:u:")) != -1) {
         switch(opt) {
-            case 'ip':
+            case 'i':
                 *ip = optarg;
                 break;
             case 'port':
