@@ -12,20 +12,28 @@ int main(int argc, char *argv[]) {
     int sockfd, status, opt;
     char buffer[1024];
 
-    char ip[100], port[100], username[100];
-
-   while ((opt = getopt(argc, argv, "ip:u:")) != -1) {
-        switch(opt) {
-            case 'i':
-                *ip = optarg;
-                break;
-            case 'p':
-                *port = optarg;
-                break;
-            case 'u':
-                *username = optarg;
-                break;
+    char *ip = NULL;
+    char *port = NULL;
+    char *username = NULL;
+    
+    // Parse command-line arguments
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "-ip") == 0 && i + 1 < argc) {
+            ip = argv[i + 1];
+            i++; // Skip the next argument since we've used it
+        } else if (strcmp(argv[i], "-port") == 0 && i + 1 < argc) {
+            port = argv[i + 1];
+            i++; // Skip the next argument
+        } else if (strcmp(argv[i], "-username") == 0 && i + 1 < argc) {
+            username = argv[i + 1];
+            i++; // Skip the next argument
         }
+    }
+    
+    // Check if all required arguments were provided
+    if (ip == NULL || port == NULL || username == NULL) {
+        fprintf(stderr, "Usage: %s -ip <IP_ADDRESS> -port <PORT> -username <USERNAME>\n", argv[0]);
+        exit(1);
     }
 
     // Set up socket parameters
