@@ -5,7 +5,7 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
-#include <cjson/cJSON.h>
+#include "cjson/cJSON.h"
 
 int main(int argc, char *argv[]) {
     struct addrinfo hints, *res;
