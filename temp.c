@@ -1,6 +1,5 @@
 #include <string.h>
 #include <stdio.h>
-#include "octaflip/octaflip.h"
 #include "cjson/cJSON.h"
 
 void game_start(char *username1, char *username2)

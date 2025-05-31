@@ -7,23 +7,26 @@
 #include <unistd.h>
 #include "cjson/cJSON.h"
 
-void game_start(char *username1[], char *username2[])
+void game_start(char *username1, char *username2)
 {
     cJSON *Payload = cJSON_CreateObject();
     cJSON *players = cJSON_CreateArray();
 
-    cJSON_AddItemToArray(players, username1);
-    cJSON_AddItemToArray(players, username2);
+    cJSON_AddItemToArray(players,cJSON_CreateString(username1));
+    cJSON_AddItemToArray(players,cJSON_CreateString(username2));
 
-    cJSON_AddItemToObject(Payload, "type", "game_start");
-    cJSON_AddArrayToObject(Payload, players);
+    cJSON_AddStringToObject(Payload, "type", "game_start");
+    cJSON_AddItemToObject(Payload, "players", players);
+    cJSON_AddStringToObject(Payload, "first_player", username1);
+
+    printf("%s\n", cJSON_Print(Payload));
 }
 
 int main(int argc, char *argv[]) {
     struct addrinfo hints, *res;
     int sockfd, clientfd, status;
-    int clientfd1 = NULL;
-    int clientfd2 = NULL;
+    int clientfd1 = -10;
+    int clientfd2 = -10;
     int n_client = 0;
     char buffer[1024];
 
@@ -73,17 +76,18 @@ int main(int argc, char *argv[]) {
             perror("accept error");
             continue;
         }
-        else if(clientfd1 == NULL){
+        else if(clientfd1 == -10){
             clientfd1 = clientfd;
             n_client++;
         }
-        else if(clientfd1 == NULL){
+        else if(clientfd1 == -10){
             clientfd2 = clientfd;
             n_client++;
         }
     }
 
     printf("%d %d\n", clientfd1, clientfd2);
+    
 
     while (1) {
         // Accept a new connection
