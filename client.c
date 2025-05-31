@@ -19,10 +19,10 @@ int main(int argc, char *argv[]) {
             case 'i':
                 *ip = optarg;
                 break;
-            case 'port':
+            case 'p':
                 *port = optarg;
                 break;
-            case 'username':
+            case 'u':
                 *username = optarg;
                 break;
         }
