@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     hints.ai_socktype = SOCK_STREAM;
 
     // Resolve the IP address of the remote server using getaddrinfo
-    status = getaddrinfo("127.0.0.1", "5000", &hints, &res);
+    status = getaddrinfo(argv[1], argv[2], &hints, &res);
     if (status != 0) {
         fprintf(stderr, "getaddrinfo error: %s\n", gai_strerror(status));
         exit(1);
