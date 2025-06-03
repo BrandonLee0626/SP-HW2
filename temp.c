@@ -395,7 +395,6 @@ int main()
 
     
     for(int i=1;i<N+1;i++){
-        clear_board(canvas);
         int player = 3-i%2;
         
         if (fgets(input, sizeof(input), stdin) != NULL){
@@ -451,6 +450,7 @@ int main()
             pass_flag = 0;
         }
 
+        clear_board(canvas);
         draw_board(canvas, board);
 
         if (terminate(board)) game_result(board);
