@@ -29,6 +29,7 @@ int main()
     options.parallel = 1;
     options.hardware_mapping = "regular";
     options.brightness = 100;
+    options.disable_hardware_pulsing = 1;
 
     struct RGBLedMatrix *matrix = led_matrix_create_from_options(&options, NULL, NULL);
     if (matrix == NULL) {
