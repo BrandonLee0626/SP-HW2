@@ -18,8 +18,8 @@ void draw_box(struct LedCanvas *canvas, int x, int y, uint8_t r, uint8_t g, uint
 void draw_board(struct LedCanvas *canvas, int board[][10]) {
     for(int i=1;i<=8;i++){
         for(int j=1;j<=8;j++){
-            if(board[j][i] == 2) draw_box(canvas, (j-1)*8, (i-1)*8, 255, 0, 0);
-            if(board[j][i] == 3) draw_box(canvas, (j-1)*8, (i-1)*8, 0, 0, 255);
+            if(board[i][j] == 2) draw_box(canvas, (i-1)*8, (9-j)*8, 255, 0, 0);
+            if(board[i][j] == 3) draw_box(canvas, (i-1)*8, (9-j)*8, 0, 0, 255);
         }
     }
 }
