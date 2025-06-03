@@ -23,3 +23,11 @@ void draw_board(struct LedCanvas *canvas, int board[][10]) {
         }
     }
 }
+
+void clear_board(struct LedCanvas *canvas) {
+    for (int y = 0; y < 64; ++y) {
+        for (int x = 0; x < 64; ++x) {
+            led_canvas_set_pixel(canvas, x, y, 0, 0, 0);
+        }
+    }
+}
