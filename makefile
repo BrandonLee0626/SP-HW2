@@ -6,7 +6,7 @@ client: client.c
 server: server.c
 	gcc server.c game_logic/game_logic.c cjson/cJSON.c -I./cjson -o server
 
-board board.c
+board: board.c
 	g++ -o board board.c -I./include -L. -lrgbmatrix -lrt -lm -lpthread
 
 clean:
