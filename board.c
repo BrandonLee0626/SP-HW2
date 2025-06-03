@@ -9,10 +9,10 @@ void draw_box(struct LedCanvas *canvas, int x, int y, uint8_t r, uint8_t g, uint
 {
     for(int i=0;i<8;i++) draw_line(canvas, x, y+i, x + 7, y+i, r, g, b);
 
-    draw_line(canvas, x, y, x + size - 1, y, 0, 0, 0);
-    draw_line(canvas, x, y + size - 1, x + size - 1, y + size - 1, 0, 0, 0);
-    draw_line(canvas, x, y, x, y + size - 1, 0, 0, 0);
-    draw_line(canvas, x + size - 1, y, x + size - 1, y + size - 1, 0, 0, 0);
+    draw_line(canvas, x, y, x + 7, y, 0, 0, 0);
+    draw_line(canvas, x, y + 7, x + 7, y + 7, 0, 0, 0);
+    draw_line(canvas, x, y, x, y + 7, 0, 0, 0);
+    draw_line(canvas, x + 7, y, x + 7, y + 7, 0, 0, 0);
 }
 
 void draw_board(struct LedCanvas *canvas, int board[][10]) {
