@@ -392,6 +392,7 @@ int main()
 
     
     for(int i=1;i<N+1;i++){
+        led_matrix_delete(matrix);
         int player = 3-i%2;
         
         if (fgets(input, sizeof(input), stdin) != NULL){
@@ -448,7 +449,6 @@ int main()
         }
 
         draw_board(canvas, board);
-        sleep(5);
 
         if (terminate(board)) game_result(board);
     }
