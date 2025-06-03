@@ -316,11 +316,6 @@ void game_result(int board[][10])
     exit(0);
 }
 
-int input_integer()
-{
-
-}
-
 int main()
 {
 
