@@ -7,7 +7,7 @@
 
 void draw_box(struct LedCanvas *canvas, int x, int y, uint8_t r, uint8_t g, uint8_t b) 
 {
-  for(int i=0;i<8;i++) draw_line(canvas, x, y, x + 7, y+i, r, g, b);
+  for(int i=0;i<8;i++) draw_line(canvas, x, y+i, x + 7, y+i, r, g, b);
 }
 
 void draw_board(struct LedCanvas *canvas, int board[][10]) {
