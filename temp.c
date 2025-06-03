@@ -371,6 +371,8 @@ int main()
         }
     }
 
+    draw_board(canvas, board);
+
     if (fgets(input, sizeof(input), stdin) != NULL){
         if(input[0] == '\n'){
             printf("Invalid input at turn 0");
