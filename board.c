@@ -5,13 +5,9 @@
 #define LED_ROW 64
 #define LED_COL 64
 
-void draw_box(struct LedCanvas *canvas, int x, int y, uint8_t r, uint8_t g, uint8_t b) {
-  int size = 8;
-
-  draw_line(canvas, x, y, x + size - 1, y, r, g, b);
-  draw_line(canvas, x, y + size - 1, x + size - 1, y + size - 1, r, g, b);
-  draw_line(canvas, x, y, x, y + size - 1, r, g, b);
-  draw_line(canvas, x + size - 1, y, x + size - 1, y + size - 1, r, g, b);
+void draw_box(struct LedCanvas *canvas, int x, int y, uint8_t r, uint8_t g, uint8_t b) 
+{
+  for(int i=0;i<8;i++) draw_line(canvas, x, y, x + 7, y+i, r, g, b);
 }
 
 void draw_board(struct LedCanvas *canvas, int board[][10]) {
