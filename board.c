@@ -23,34 +23,3 @@ void draw_board(struct LedCanvas *canvas, int board[][10]) {
         }
     }
 }
-
-int main()
-{
-    RGBLedMatrixOptions options;
-    memset(&options, 0, sizeof(options));
-    options.rows = 64;
-    options.cols = 64;
-    options.chain_length = 1;
-    options.parallel = 1;
-    options.hardware_mapping = "regular";
-    options.brightness = 100;
-    options.disable_hardware_pulsing = 1;
-
-    struct RGBLedMatrix *matrix = led_matrix_create_from_options(&options, NULL, NULL);
-    if (matrix == NULL) {
-        return 1;
-    }
-
-    struct LedCanvas *canvas = led_matrix_get_canvas(matrix);
-
-    int board[10][10] = {0};
-    board[2][3] = 2; 
-    board[5][6] = 3;
-
-    draw_board(canvas, board);
-
-    sleep(10);
-
-    led_matrix_delete(matrix);
-    return 0;
-}
