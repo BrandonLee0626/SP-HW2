@@ -7,7 +7,7 @@ server: server.c
 	gcc server.c game_logic/game_logic.c cjson/cJSON.c -I./cjson -o server
 
 board: board.c
-	g++ -o board board.c -I./include -L. -lrgbmatrix -lrt -lm -lpthread
-
+	g++ -o board board.c lib/led-matrix-c.cc -I./include -I. -lrt -lm -lpthread
+	
 clean:
 	rm -f client server
