@@ -328,7 +328,7 @@ int main()
     options.hardware_mapping = "regular";
     options.brightness = 100;
     options.disable_hardware_pulsing = 1;
-    options.led_scan_mode = 1;
+    options.scan_mode = 1;
 
     struct RGBLedMatrix *matrix = led_matrix_create_from_options(&options, NULL, NULL);
     if (matrix == NULL) {
