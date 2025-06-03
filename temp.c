@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include<unistd.h>
+#include<string.h>
 #include "board.h"
 
 void show_board(int board[][10])
