@@ -1,7 +1,7 @@
 server
 
->>bash runfile.sh
+>>bash server_runfile.sh
 
 client
 
->>./client -ip <ip> -port <port> -username <username>
+>>bash client_runfile.sh
