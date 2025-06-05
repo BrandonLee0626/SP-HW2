@@ -6,6 +6,18 @@
 #include <netdb.h>
 #include <unistd.h>
 #include "cjson/cJSON.h"
+#include <limits.h>
+
+// 구조체: 후보 수를 담을 구조체
+typedef struct {
+    int src_x, src_y;
+    int dst_x, dst_y;
+    int is_clone;        // 1: clone, 0: jump
+    int is_safe_jump;    // 1: 안전한 점프, 0: 불안전 점프 (clone일 땐 무시)
+    int friend_count;    // 이동한 칸 주변 친구 수 + 모서리/꼭짓점 보너스
+    int final_value;     // (내 그리디 값) - (상대 최대 그리디 값)
+} MoveOption;
+
 typedef struct{
     int x;
     int y;
@@ -41,6 +53,8 @@ cJSON* receive_payload(int sockfd)
     len += recv(sockfd, buffer + len, sizeof(buffer) - len - 1, 0);
     buffer[len] ='\0';
     payload = cJSON_Parse(buffer);
+
+    printf("payload:%s\n", payload->valuestring);
     
     return payload;
 }
@@ -223,13 +237,20 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
+    printf("++++++++++\n");
     // Send a register to the server
     send_register(username, sockfd);
 
+    printf("------\n");
+
     verify_register_ack(sockfd);
+
+    printf("=======\n");
 
     // Receive game_start from the server
     payload = receive_payload(sockfd);
+
+    printf("//////////\n");
 
     if (strcmp(username, cJSON_GetObjectItemCaseSensitive(payload, "first_player")->valuestring) == 0)
         player = 2;
