@@ -353,6 +353,7 @@ int main(int argc, char *argv[]) {
         else move(sx, sy, tx, ty, dir, board);
         
         count_turn++;
+        show_board(board);
         if(terminate(board)) break;
     }
 
