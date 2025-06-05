@@ -37,6 +37,8 @@ cJSON* receive_payload(int clientfd, int t)
     buffer[len] ='\0';
     payload = cJSON_Parse(buffer);
 
+    printf("%s\n", buffer);
+
     return payload;
 }
 
