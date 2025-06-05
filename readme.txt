@@ -1,7 +1,8 @@
-server
+bash for run server
 
->>bash server_runfile.sh
+bash server_runfile.sh
 
-client
+bash for run client
 
->>bash client_runfile.sh
+make client
+./client -ip <ip> -port <port> -username <username>
